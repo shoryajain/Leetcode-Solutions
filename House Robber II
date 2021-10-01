@@ -1,0 +1,17 @@
+class Solution:
+    def helper(self, nums: List[int]) -> int:
+        ans = 0
+        if nums:
+            l = len(nums)
+            dp = list()
+            for i in range(l):
+                x = 0 if i-2 < 0 else dp[i-2]
+                y = 0 if i-3 < 0 else dp[i-3]
+                dp.append(nums[i]+max(x,y))
+                if dp[-1] > ans:
+                    ans = dp[-1]
+        return ans
+    def rob(self, nums: List[int]) -> int:
+        if len(nums) == 1:
+            return nums[0]
+        return max(self.helper(nums[:-1]),self.helper(nums[1:]))
