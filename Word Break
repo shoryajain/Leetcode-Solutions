@@ -1,3 +1,5 @@
+# https://leetcode.com/problems/word-break/
+#Python
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
         l = len(s)
@@ -16,3 +18,26 @@ class Solution:
                     if j == l and wb[j]:
                         return True
         return False
+
+#Java
+class Solution {
+    Set<Integer> unbrokenWords = new HashSet();
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> dictionary = new HashSet();
+        for (String word : wordDict) dictionary.add(word);
+        return words(s, dictionary);
+    }
+    
+    private boolean words(String s, Set<String> wordDict) {
+        if (wordDict.contains(s)) return true;
+        for (int i = 1; i < s.length(); i++) {
+            int remainingLength = s.length() - i;
+            if (unbrokenWords.contains(remainingLength)) continue;
+            if (wordDict.contains(s.substring(0, i))) {
+                if (words(s.substring(i, s.length()), wordDict)) return true;
+                unbrokenWords.add(remainingLength);
+            }
+        }
+        return false;
+    }
+}
