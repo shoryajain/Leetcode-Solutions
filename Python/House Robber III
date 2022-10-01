@@ -1,0 +1,12 @@
+class Solution:
+    def helper(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return [0,0]
+        left = self.helper(root.left)
+        right = self.helper(root.right)
+        ans = [0,0]
+        ans[0] = max(left) + max(right)
+        ans[1] = root.val + left[0] + right[0]
+        return ans
+    def rob(self, root: Optional[TreeNode]) -> int:
+        return max(self.helper(root))
