@@ -1,5 +1,6 @@
 # https://leetcode.com/problems/container-with-most-water/
 
+# python
 class Solution:
     def maxArea(self, height: List[int]) -> int:
         s = 0
@@ -13,3 +14,31 @@ class Solution:
                 ans = max(ans,(height[e]*(e-s)))
                 e -= 1
         return ans
+
+#java
+class Solution {
+    public int maxArea(int[] height) {
+        int result = 0, start = 0, end = height.length - 1;
+        
+        while(start != end) {
+            int currentHeight = min(height[start], height[end]) * (end - start);
+            if (currentHeight > result) {
+                result = currentHeight;
+            }
+            if (height[start] > height[end]) {
+                end--;
+            } else {
+                start++;
+            }
+        }
+        
+        return result;
+    }
+    
+    private int min(int a, int b) {
+        if (a > b) {
+            return b;
+        }
+        return a;
+    }
+}
